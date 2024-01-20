@@ -20,7 +20,10 @@
   };
 
   outputs = { self, flake-utils, nixpkgs, rust-overlay, cargo2nix, ... }:
-    flake-utils.lib.eachSystem [ "aarch64-linux" "aarch64-darwin" ] (system:
+    let
+      systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
+    in
+    flake-utils.lib.eachSystem systems (system:
       let
         pkgs = import nixpkgs {
           inherit system;
